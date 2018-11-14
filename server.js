@@ -48,6 +48,12 @@ app.get('/shopping-list', (req, res) => {
   res.json(ShoppingList.get());
 });
 
+app.delete('/shopping-list/:id', (req, res) => {
+  ShoppingList.delete(req.params.id);
+  console.log(`Deleted shopping list item \`${req.params.id}\``);
+  res.status(204).end();
+});
+
 app.post('/shopping-list', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
   const requiredFields = ['name', 'budget'];
@@ -62,6 +68,12 @@ app.post('/shopping-list', jsonParser, (req, res) => {
 
   const item = ShoppingList.create(req.body.name, req.body.budget);
   res.status(201).json(item);
+});
+
+
+app.delete('/recipes/:id', (req,res) => {
+  Recipes.delete(req.params.id); 
+  res.status(204).end();
 });
 
 app.post('/recipes', jsonParser, (req, res) => {
